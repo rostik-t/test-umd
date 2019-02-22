@@ -1,10 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@emias-kpi/ui-kit'), require('autobind-decorator'), require('@angular/animations'), require('@angular/forms'), require('@ehr-forms/renderer-angular'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/core'), require('rxjs'), require('@ehr-forms/open-ehr-library'), require('@ehr-forms/renderer')) :
-    typeof define === 'function' && define.amd ? define('@ehr-forms/navigation-library-angular', ['exports', '@angular/common', '@emias-kpi/ui-kit', 'autobind-decorator', '@angular/animations', '@angular/forms', '@ehr-forms/renderer-angular', 'rxjs/operators', '@angular/common/http', '@angular/core', 'rxjs', '@ehr-forms/open-ehr-library', '@ehr-forms/renderer'], factory) :
-    (factory((global['ehr-forms'] = global['ehr-forms'] || {}, global['ehr-forms']['navigation-library-angular'] = {}),global.ng.common,global.uiKit,global.Bind,global.ng.animations,global.ng.forms,global.rendererAngular,global.rxjs.operators,global.ng.common.http,global.ng.core,global.rxjs,global.openEhrLibrary,global.renderer));
-}(this, (function (exports,common,uiKit,Bind,animations,forms,rendererAngular,operators,http,core,rxjs,openEhrLibrary,renderer) { 'use strict';
-
-    Bind = Bind && Bind.hasOwnProperty('default') ? Bind['default'] : Bind;
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@emias-kpi/ui-kit'), require('@angular/animations'), require('@angular/forms'), require('@ehr-forms/renderer-angular'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/core'), require('rxjs'), require('@ehr-forms/open-ehr-library'), require('@ehr-forms/renderer')) :
+    typeof define === 'function' && define.amd ? define('@ehr-forms/navigation-library-angular', ['exports', '@angular/common', '@emias-kpi/ui-kit', '@angular/animations', '@angular/forms', '@ehr-forms/renderer-angular', 'rxjs/operators', '@angular/common/http', '@angular/core', 'rxjs', '@ehr-forms/open-ehr-library', '@ehr-forms/renderer'], factory) :
+    (factory((global['ehr-forms'] = global['ehr-forms'] || {}, global['ehr-forms']['navigation-library-angular'] = {}),global.ng.common,global.uiKit,global.ng.animations,global.ng.forms,global.rendererAngular,global.rxjs.operators,global.ng.common.http,global.ng.core,global.rxjs,global.openEhrLibrary,global.renderer));
+}(this, (function (exports,common,uiKit,animations,forms,rendererAngular,operators,http,core,rxjs,openEhrLibrary,renderer) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -77,6 +75,147 @@
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+
+    var Messenger = /** @class */ (function (_super) {
+        __extends(Messenger, _super);
+        function Messenger(context) {
+            var _this = _super.call(this, context, renderer.ElementType.Container) || this;
+            _this.archetypes = {};
+            return _this;
+        }
+        Messenger.prototype.getTitle = function () {
+            return "Мессенджер";
+        };
+        Messenger.prototype.init = function () {
+            if (!this.slots) {
+                this.slots = [];
+            }
+        };
+        // загрузка данных в слоты
+        Messenger.prototype.load = function (dataContext) {
+            var _this = this;
+            _super.prototype.load.call(this, dataContext);
+            if (!this.dataContext)
+                return;
+            this.archetypes = {};
+            var archetypeNodes = this.dataContext.getArchetypeTree();
+            archetypeNodes.forEach(function (tree) { return _this.loadArchetypeRecursive(tree.getTree()); });
+            this.slots.forEach(function (c) { return c.load(dataContext); });
+        };
+        // список всех слотов
+        Messenger.prototype.getSlots = function () {
+            return this.slots;
+        };
+        Messenger.prototype.getRuntimeChildren = function () {
+            return this.slots;
+        };
+        Messenger.prototype.getChildren = function () {
+            return [];
+        };
+        Messenger.prototype.getActions = function () {
+            var actions = [];
+            _super.prototype.getActions.call(this).forEach(function (c) {
+                actions.push(c);
+            });
+            return actions;
+        };
+        Messenger.prototype.addMessage = function (message) {
+            var archetypeNodes = this.getArchetypesForMessage(message);
+            if (archetypeNodes.length === 0)
+                return;
+            var archetypeNode = archetypeNodes[0];
+            this.addArchetype(archetypeNode);
+        };
+        Messenger.prototype.getArchetypesForMessage = function (message) {
+            var _this = this;
+            return Object.keys(this.archetypes).filter(function (c) { return c.startsWith(message); }).map(function (c) { return _this.archetypes[c]; });
+        };
+        Messenger.prototype.addArchetype = function (archetypeNode) {
+            var components = renderer.ElementFactory.getInstance().createComponents(archetypeNode);
+            if (components.length === 0)
+                return;
+            var widgetRef = components.find(function (c) { return c.elementType === renderer.ElementType.WidgetRef; });
+            if (!widgetRef)
+                return;
+            var slotElement = renderer.ElementNode.create({
+                type: renderer.BasicSlot.className,
+                library: this.node.getLibrary(),
+                version: this.node.getVersion(),
+            });
+            var slot = new renderer.BasicSlot(this.childContext(slotElement));
+            slot.putComponent(widgetRef);
+            this.slots.push(slot);
+            if (this.dataContext) {
+                slot.load(this.dataContext);
+            }
+            this.raiseChanged(this, undefined);
+            this.onUpdated().trigger({ component: this });
+        };
+        Messenger.prototype.loadArchetypeRecursive = function (archetypeNode) {
+            var _this = this;
+            if (!archetypeNode)
+                return;
+            if (archetypeNode.type === renderer.ArchetypeNodeType.Archetype) {
+                this.archetypes[archetypeNode.name] = archetypeNode;
+            }
+            if (archetypeNode.childNodes) {
+                archetypeNode.childNodes.forEach(function (c) { return _this.loadArchetypeRecursive(c); });
+            }
+        };
+        Messenger.className = 'Messenger';
+        return Messenger;
+    }(renderer.BindableComponent));
+    var MessengerComponent = /** @class */ (function (_super) {
+        __extends(MessengerComponent, _super);
+        function MessengerComponent(changeDetectorRef) {
+            return _super.call(this, changeDetectorRef) || this;
+        }
+        Object.defineProperty(MessengerComponent.prototype, "slots", {
+            get: function () {
+                return this.model.getSlots();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        MessengerComponent.prototype.getModel = function () {
+            return this.model;
+        };
+        MessengerComponent.prototype.ngOnInit = function () {
+            _super.prototype.ngOnInit.call(this);
+        };
+        MessengerComponent.prototype.setMessage = function (message) {
+            this.message = message;
+            this.archetypes = this.model.getArchetypesForMessage(message);
+        };
+        MessengerComponent.prototype.addArchetype = function (node) {
+            this.model.addArchetype(node);
+        };
+        MessengerComponent.prototype.add = function () {
+            this.model.addMessage(this.message);
+        };
+        MessengerComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ehr-messenger',
+                        template: "<div class=\"error\" *ngIf=\"hasError\"></div>\r\n<div class=\"container\">\r\n    <ehr-root-slot *ngFor=\"let slot of slots\"\r\n                   [model]=\"slot\"\r\n                   [reload]=\"reloadId\"\r\n                   [component]=\"slot.getComponent()\"></ehr-root-slot>\r\n\r\n    <textarea [rows]=\"5\" class=\"textarea\" (input)=\"setMessage($event.target.value)\" placeholder=\"\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0435\u043A\u0441\u0442\"></textarea>\r\n    <span (click)=\"addArchetype(archetype)\" style=\"background-color: #ffa21d\" *ngFor=\"let archetype of archetypes\">{{ archetype.name }}</span>\r\n    <span (click)=\"add()\">\u0412\u0432\u0435\u0441\u0442\u0438</span>\r\n</div>\r\n\r\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [".container{display:flex;flex-wrap:nowrap;justify-content:flex-start;align-content:stretch;align-items:stretch;flex-direction:column}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        MessengerComponent.ctorParameters = function () {
+            return [
+                { type: core.ChangeDetectorRef }
+            ];
+        };
+        MessengerComponent.propDecorators = {
+            model: [{ type: core.Input }]
+        };
+        MessengerComponent = __decorate([
+            rendererAngular.AssignModel(Messenger),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
+        ], MessengerComponent);
+        return MessengerComponent;
+    }(rendererAngular.BasicComponent));
 
     var NavigationSection = /** @class */ (function (_super) {
         __extends(NavigationSection, _super);
@@ -260,6 +399,232 @@
         return NavigationHideableSection;
     }(NavigationSection));
 
+    var NavigationSectionComponent = /** @class */ (function (_super) {
+        __extends(NavigationSectionComponent, _super);
+        function NavigationSectionComponent(changeDetectorRef) {
+            var _this = _super.call(this, changeDetectorRef) || this;
+            _this.isCollapsed = false;
+            _this.activeNode = false;
+            return _this;
+        }
+        NavigationSectionComponent.prototype.ngOnInit = function () {
+            _super.prototype.ngOnInit.call(this);
+            if (this.model.hiddenByDefault.getValue() === true) {
+                this.collapseSection();
+            }
+            this.viewSettings = this.model.findParent('Navigation').getViewSettings();
+            this.viewSettings.activeNodeChangedEvent.on(this.onActiveNodeChanged.bind(this));
+        };
+        NavigationSectionComponent.prototype.ngOnDestroy = function () {
+            _super.prototype.ngOnDestroy.call(this);
+            this.viewSettings.activeNodeChangedEvent.off(this.onActiveNodeChanged.bind(this));
+        };
+        NavigationSectionComponent.prototype.toggleAddSection = function () {
+            this.viewSettings.toggleSectionHiddenContents(this.model);
+        };
+        NavigationSectionComponent.prototype.getModel = function () {
+            return this.model;
+        };
+        NavigationSectionComponent.prototype.expandSection = function ($event) {
+            this.isCollapsed = false;
+        };
+        NavigationSectionComponent.prototype.collapseSection = function ($event) {
+            this.isCollapsed = true;
+            $event && $event.stopPropagation();
+        };
+        NavigationSectionComponent.prototype.onActiveNodeChanged = function (activeNode) {
+            var newActiveNode = this.model.isNodeActive(activeNode.section);
+            if (this.activeNode !== newActiveNode) {
+                this.activeNode = newActiveNode;
+                this.changeDetectorRef.detectChanges();
+            }
+        };
+        NavigationSectionComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ehr-navigation-section',
+                        template: "<div class=\"navigation-section\" id=\"id-{{model.getId()}}\" [ngClass]=\"{ 'is-collapsed': isCollapsed, 'active': activeNode }\">\r\n    <div class=\"header\" (click)=\"expandSection($event)\">\r\n        <div class=\"corner\"></div>\r\n        <span class=\"label\">\r\n            <span class=\"label-text\">\r\n                <span class=\"plus\">\r\n                    <sc-svg-icon type=\"plus\" size=\"s\"></sc-svg-icon>\r\n                </span>\r\n               {{ model.getDescription() }}\r\n            </span>\r\n        </span>\r\n        <span class=\"label-end-position-holder\">\r\n            <span class=\"clear\" (click)=\"collapseSection($event)\">\r\n                <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n            </span>\r\n        </span>\r\n    </div>\r\n    <div class=\"content\">\r\n        <div class=\"slot-container\" *ngFor=\"let slot of model.getSlots()\">\r\n            <ehr-root-slot class=\"slot\"\r\n                           [reload]=\"reloadId\"\r\n                           [component]=\"slot.getComponent()\"\r\n                           [model]=\"slot\"></ehr-root-slot>\r\n        </div>\r\n        <div class=\"navigation-section__add-button\" *ngIf=\"model.hasHideableSections\" (click)=\"toggleAddSection()\">\r\n            <sc-svg-icon type=\"plus\" size=\"s\"></sc-svg-icon> <span class=\"navigation-section__add-button_text\">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0440\u0430\u0437\u0434\u0435\u043B</span>\r\n        </div>\r\n    </div>\r\n</div>\r\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [":host .navigation-section{background-color:#fff;border:1px dashed #ccc;border-radius:4px;display:flex;flex-direction:column}:host .navigation-section.active{border:1px dashed #ffe066}:host .navigation-section.active .header .corner:before{content:''}:host .navigation-section.is-collapsed .header{cursor:pointer}:host .navigation-section.is-collapsed .header .label-text{color:#269999}:host .navigation-section.is-collapsed .header .plus{display:block;height:16px;margin-right:12px;width:16px;font-size:12px}:host .navigation-section.is-collapsed .header .clear{display:none}:host .navigation-section.is-collapsed .header:hover{background-color:#eaf5f5}:host .navigation-section.is-collapsed .content{display:none}:host .navigation-section__add-button{align-items:center;border:1px dashed #269999;color:#269999;cursor:pointer;display:flex;flex-shrink:0;font-weight:600;height:72px;justify-content:center;margin:16px}:host .navigation-section__add-button:hover{background-color:#eaf5f5}:host .navigation-section__add-button>sc-svg-icon{display:block;height:16px;margin-right:8px;width:16px}:host .navigation-section__add-button_text{border-bottom:1px dashed #269999;line-height:24px;font-size:15px}:host .navigation-section ::ng-deep .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section{background-color:#fafafa}:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-section,:host .navigation-section ::ng-deep .navigation-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section .navigation-section{background-color:#fff}:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-section,:host .navigation-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-section,:host .navigation-section ::ng-deep .navigation-section .navigation-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section .navigation-section .navigation-section{background-color:#fafafa}:host .header{align-items:center;background-color:transparent;border-bottom:0;display:flex;padding:16px}:host .header .corner{border-radius:4px 0 0;display:block;position:absolute;overflow:hidden;top:0;left:0;height:24px;width:24px}:host .header .corner:before{border:24px solid transparent;border-left:24px solid #ffe066;display:block;height:0;left:0;position:absolute;top:-24px;width:0}:host .content{display:flex;flex-direction:column;margin:0 16px}:host .content .slot-container{margin-bottom:16px}:host .label-container{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-end-position-holder{margin-left:auto}:host .clear{border-bottom:0;cursor:pointer;display:block;opacity:.5;color:#269999}:host .clear:hover{opacity:1}:host .clear sc-svg-icon{display:block}:host .plus{display:none}:host .plus sc-svg-icon{display:block}:host .label{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-text{align-items:center;display:flex;color:#000;font-size:18px;font-weight:600;line-height:24px}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        NavigationSectionComponent.ctorParameters = function () {
+            return [
+                { type: core.ChangeDetectorRef }
+            ];
+        };
+        NavigationSectionComponent.propDecorators = {
+            model: [{ type: core.Input }],
+            isCollapsed: [{ type: core.Input }]
+        };
+        NavigationSectionComponent = __decorate([
+            rendererAngular.AssignModel(NavigationSection),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
+        ], NavigationSectionComponent);
+        return NavigationSectionComponent;
+    }(rendererAngular.BasicComponent));
+
+    var NavigationHideableSectionComponent = /** @class */ (function (_super) {
+        __extends(NavigationHideableSectionComponent, _super);
+        function NavigationHideableSectionComponent(changeDetectorRef) {
+            var _this = _super.call(this, changeDetectorRef) || this;
+            _this.isCollapsed = false;
+            return _this;
+        }
+        NavigationHideableSectionComponent.prototype.ngOnInit = function () {
+            _super.prototype.ngOnInit.call(this);
+            if (this.model.hiddenByDefault.getValue() === true) {
+                this.hideSection();
+            }
+        };
+        NavigationHideableSectionComponent.prototype.getModel = function () {
+            return this.model;
+        };
+        NavigationHideableSectionComponent.prototype.hideSection = function () {
+            this.model.isHidden = true;
+        };
+        NavigationHideableSectionComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ehr-navigation-hideable-section',
+                        template: "<div class=\"navigation-hideable-section\" [ngClass]=\"{'is-hidden': model.isHidden, 'active': activeNode}\" id=\"id-{{model.getId()}}\">\r\n    <div class=\"header\">\r\n        <div class=\"corner\"></div>\r\n        <span class=\"label\">\r\n            <span class=\"label-text\">\r\n                {{model.getDescription()}}\r\n            </span>\r\n        </span>\r\n        <span class=\"label-end-position-holder\">\r\n            <span class=\"clear\" (click)=\"hideSection()\">\r\n                <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n            </span>\r\n        </span>\r\n\r\n    </div>\r\n    <div class=\"content\">\r\n        <div class=\"slot-container\" *ngFor=\"let slot of model.getSlots()\">\r\n            <ehr-root-slot class=\"slot\"\r\n                           [reload]=\"reloadId\"\r\n                           [component]=\"slot.getComponent()\"\r\n                           [model]=\"slot\"></ehr-root-slot>\r\n        </div>\r\n    </div>\r\n</div>\r\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [":host .navigation-hideable-section{background-color:#fafafa;border:1px dashed #ccc;border-radius:4px;display:flex;flex-direction:column}:host .navigation-hideable-section.is-hidden{display:none}:host .navigation-hideable-section.active{border:1px dashed #ffe066}:host .navigation-hideable-section.active .header .corner:before{content:''}:host .navigation-hideable-section ::ng-deep .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section{background-color:#fafafa}:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-section{background-color:#fff}:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-section .navigation-section{background-color:#fafafa}:host .header{align-items:center;background-color:transparent;border-bottom:0;display:flex;padding:16px}:host .header .corner{border-radius:4px 0 0;display:block;position:absolute;overflow:hidden;top:0;left:0;height:24px;width:24px}:host .header .corner:before{border:24px solid transparent;border-left:24px solid #ffe066;display:block;height:0;left:0;position:absolute;top:-24px;width:0}:host .content{display:flex;flex-direction:column;margin:0 16px}:host .content .slot-container{margin-bottom:16px}:host .label-container{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-end-position-holder{margin-left:auto}:host .clear{border-bottom:0;cursor:pointer;display:block;opacity:.5;color:#269999}:host .clear:hover{opacity:1}:host .clear sc-svg-icon{display:block}:host .label{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-text{color:#000;font-size:18px;font-weight:600;line-height:24px}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        NavigationHideableSectionComponent.ctorParameters = function () {
+            return [
+                { type: core.ChangeDetectorRef }
+            ];
+        };
+        NavigationHideableSectionComponent.propDecorators = {
+            model: [{ type: core.Input }],
+            isCollapsed: [{ type: core.Input }]
+        };
+        NavigationHideableSectionComponent = __decorate([
+            rendererAngular.AssignModel(NavigationHideableSection),
+            __metadata("design:paramtypes", [core.ChangeDetectorRef])
+        ], NavigationHideableSectionComponent);
+        return NavigationHideableSectionComponent;
+    }(NavigationSectionComponent));
+
+    var NavigationContentsComponent = /** @class */ (function () {
+        function NavigationContentsComponent(changeDetectorRef) {
+            this.changeDetectorRef = changeDetectorRef;
+            this.nestingLevel = 0;
+            this.unsubscriber = new rxjs.Subscription();
+        }
+        NavigationContentsComponent.prototype.ngOnInit = function () {
+            var _this = this;
+            this.unsubscriber.add(this.model.getViewSettings().sectionToggled.subscribe(function () {
+                _this.changeDetectorRef.detectChanges();
+            }));
+            this.model.getViewSettings().activeNodeChangedEvent.on(this.onActiveNodeChanged.bind(this));
+        };
+        NavigationContentsComponent.prototype.ngOnDestroy = function () {
+            this.unsubscriber.unsubscribe();
+            this.model.getViewSettings().activeNodeChangedEvent.off(this.onActiveNodeChanged.bind(this));
+        };
+        NavigationContentsComponent.prototype.getItemName = function (sectionNode) {
+            return sectionNode.section.getDescription();
+        };
+        NavigationContentsComponent.prototype.isButtonVisible = function (node) {
+            return node.section.hasHideableSections;
+        };
+        NavigationContentsComponent.prototype.onAction = function (slot, actionID) {
+            slot.getActions()
+                .find(function (action) { return action.id === actionID; })
+                .action();
+            this.changeDetectorRef.detectChanges();
+        };
+        NavigationContentsComponent.prototype.hasNestingLevel = function (node) {
+            return node.children &&
+                node.children.length &&
+                this.model.nestingLevels.getValue() > this.nestingLevel;
+        };
+        NavigationContentsComponent.prototype.scrollTo = function (node) {
+            document.querySelector("#id-" + node.section.getId()).scrollIntoView({ behavior: 'smooth' });
+            this.model.getViewSettings().setSectionAsActive(node);
+            this.model.getViewSettings().preventScroll = true;
+        };
+        NavigationContentsComponent.prototype.isSectionHideable = function (node) {
+            return node.section instanceof NavigationHideableSection;
+        };
+        NavigationContentsComponent.prototype.isSectionHidden = function (node) {
+            return this.isSectionHideable(node) && node.section.isHidden;
+        };
+        NavigationContentsComponent.prototype.toggleHideableSection = function (node) {
+            node.section.toggleHiddenState();
+        };
+        NavigationContentsComponent.prototype.isNodeActive = function (node) {
+            return node === this.activeNode;
+        };
+        NavigationContentsComponent.prototype.onActiveNodeChanged = function (activeNode) {
+            if (this.activeNode !== activeNode) {
+                this.activeNode = activeNode;
+                this.changeDetectorRef.detectChanges();
+            }
+        };
+        NavigationContentsComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ehr-navigation-contents',
+                        template: "<div class=\"content-item\" *ngFor=\"let node of sectionNodes\" >\r\n    <div class=\"content-item__wrapper\" *ngIf=\"!isSectionHidden(node)\">\r\n        <div class=\"content-item__wrapper_name\"\r\n             [ngClass]=\"{'is-active': activeNode === node}\"\r\n             (click)=\"scrollTo(node)\">\r\n            {{ node.section.getDescription() }}\r\n        </div>\r\n        <ng-container *ngIf=\"isSectionHideable(node)\">\r\n            <div class=\"content-item__remove\"  (click)=\"toggleHideableSection(node)\">\r\n                <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n            </div>\r\n        </ng-container>\r\n\r\n        <ehr-navigation-contents class=\"content-item__wrapper_contents\" *ngIf=\"hasNestingLevel(node)\"\r\n                                 [model]=\"model\"\r\n                                 [sectionNodes]=\"node.children\"\r\n                                 [nestingLevel]=\"nestingLevel + 1\">\r\n\r\n        </ehr-navigation-contents>\r\n    </div>\r\n    <div class=\"content-item__button\" *ngIf=\"isButtonVisible(node)\" (click)=\"model.getViewSettings().toggleSectionHiddenContents(node.section)\">\r\n        <sc-svg-icon *ngIf=\"model.getViewSettings().currentSectionWithHiddenContent !== node.section\" type=\"plus\" size=\"s\"></sc-svg-icon>\r\n        <sc-svg-icon *ngIf=\"model.getViewSettings().currentSectionWithHiddenContent === node.section\" type=\"chevron-left\" size=\"s\"></sc-svg-icon>\r\n\r\n    </div>\r\n</div>\r\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [":host{flex:1;overflow:auto;z-index:31;background-color:#fff}.content-item{cursor:pointer;display:flex;font-size:15px;font-weight:600;line-height:24px;list-style-type:none;position:relative}.content-item__wrapper{width:100%}.content-item__wrapper_name{padding:8px 48px 8px 24px}.content-item__wrapper_name.is-active{background-color:#fff5b3}.content-item__wrapper .content-item__wrapper:hover>.content-item__remove{opacity:1}.content-item .content-item{font-weight:400}.content-item .content-item .content-item__wrapper{width:100%}.content-item .content-item .content-item__wrapper:hover{background-color:#e9f4f4}.content-item .content-item .content-item__wrapper_name{padding:4px 24px 4px 40px}.content-item__remove{display:flex;justify-content:center;height:32px;left:0;opacity:0;position:absolute;top:0;width:32px}.content-item__remove:hover{background-color:#dfefef}.content-item__remove:hover>sc-svg-icon{font-size:32px;opacity:1}.content-item__remove>sc-svg-icon{color:#269999;font-size:32px;opacity:.7}.content-item__button{align-items:center;background-color:#ebf8f8;border-radius:16px;cursor:pointer;display:flex;flex:0 0 32px;justify-content:center;margin:0 8px;text-align:center;width:32px}.content-item__button>sc-svg-icon{color:#269999;opacity:.7}.content-item__button:hover{background-color:#d7f0f0}"]
+                    }] }
+        ];
+        /** @nocollapse */
+        NavigationContentsComponent.ctorParameters = function () {
+            return [
+                { type: core.ChangeDetectorRef }
+            ];
+        };
+        NavigationContentsComponent.propDecorators = {
+            sectionNodes: [{ type: core.Input }],
+            nestingLevel: [{ type: core.Input }],
+            model: [{ type: core.Input }]
+        };
+        return NavigationContentsComponent;
+    }());
+
+    var NavigationHiddenContentsComponent = /** @class */ (function () {
+        function NavigationHiddenContentsComponent() {
+            this.hiddenSections = [];
+        }
+        NavigationHiddenContentsComponent.prototype.ngOnChanges = function () {
+            this.formHiddenSections();
+        };
+        NavigationHiddenContentsComponent.prototype.toggleHideableSection = function (section) {
+            section.toggleHiddenState();
+        };
+        NavigationHiddenContentsComponent.prototype.formHiddenSections = function () {
+            var _this = this;
+            this.hiddenSections.length = 0;
+            this.sectionNodes.forEach(function (node) {
+                if (node.section === _this.model.getViewSettings().currentSectionWithHiddenContent) {
+                    node.children.forEach(function (child) {
+                        if (child.section instanceof NavigationHideableSection && child.section.isHidden) {
+                            _this.hiddenSections.push(child.section);
+                        }
+                    });
+                }
+            });
+        };
+        NavigationHiddenContentsComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ehr-navigation-hidden-contents',
+                        template: "<div class=\"header\">\r\n    <div class=\"header__title\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043D\u0443\u0436\u043D\u044B\u0435 \u0440\u0430\u0437\u0434\u0435\u043B\u044B \u043E\u0441\u043C\u043E\u0442\u0440\u0430</div>\r\n    <span class=\"header__close\" (click)=\"model.getViewSettings().closeSectionHiddenContents()\">\r\n        <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n    </span>\r\n</div>\r\n<div class=\"content\">\r\n    <div class=\"section\">\r\n        <li class=\"section__item\" (click)=\"toggleHideableSection(section)\"\r\n             *ngFor=\"let section of hiddenSections\">\r\n            <div class=\"section__item-inner\">\r\n                <sc-svg-icon type=\"plus\" size=\"s\"></sc-svg-icon>\r\n                {{section.getDescription()}}\r\n            </div>\r\n        </li>\r\n    </div>\r\n</div>\r\n",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        styles: [":host{background-color:#fff;border-right:1px solid #ccc;display:flex;flex-direction:column;height:100%;left:calc(100% + 1px);overflow:auto;position:absolute;top:0;width:312px;z-index:30}:host .header{align-items:flex-start;border-bottom:1px solid #ccc;display:flex;flex:0 0 auto;justify-content:space-between;padding:16px}:host .header__title{color:#333;font-size:15px;line-height:24px}:host .header__close{color:#777;cursor:pointer;height:32px;width:32px}:host .header__close>sc-svg-icon{font-size:32px}:host .header__close:hover{color:#474747}:host .content{flex:1 1 auto;height:100%;overflow:auto}:host .section{padding:0 16px}:host .section__header{display:flex;font-size:15px;font-weight:600;line-height:16px;margin-bottom:8px;padding:8px 8px 8px 0;white-space:nowrap}:host .section__item{display:flex;margin-top:8px}:host .section__item:not(:last-child){margin-bottom:8px}:host .section__item-inner{background-color:#e9f4f4;border-radius:16px;cursor:pointer;font-size:15px;font-weight:400;display:inline-flex;line-height:16px;padding:8px 16px 8px 8px;white-space:nowrap}:host .section__item-inner>sc-svg-icon{color:#269999;margin:0 8px 0 4px;width:16px;line-height:normal}"]
+                    }] }
+        ];
+        NavigationHiddenContentsComponent.propDecorators = {
+            sectionNodes: [{ type: core.Input }],
+            model: [{ type: core.Input }]
+        };
+        return NavigationHiddenContentsComponent;
+    }());
+
     var ViewSettings = /** @class */ (function () {
         function ViewSettings() {
             this.sectionToggled = new rxjs.Subject();
@@ -371,8 +736,8 @@
             _super.prototype.raiseChanged.call(this, component, this);
             if (component.getNode().getType() === NavigationHideableSection.className || component.getNode().getType() === NavigationSection.className) {
                 this.cachedSectionNodes = this.buildSectionRecursive(this.getSlots());
+                this.onUpdated().trigger({ component: component });
             }
-            this.onUpdated().trigger({ component: component });
         };
         Navigation.prototype.buildEditor = function (builder) {
             _super.prototype.buildEditor.call(this, builder);
@@ -417,244 +782,6 @@
         Navigation.className = 'Navigation';
         return Navigation;
     }(renderer.BaseSlotContainer));
-
-    var NavigationSectionComponent = /** @class */ (function (_super) {
-        __extends(NavigationSectionComponent, _super);
-        function NavigationSectionComponent(changeDetectorRef) {
-            var _this = _super.call(this, changeDetectorRef) || this;
-            _this.isCollapsed = false;
-            _this.activeNode = false;
-            return _this;
-        }
-        NavigationSectionComponent.prototype.ngOnInit = function () {
-            _super.prototype.ngOnInit.call(this);
-            if (this.model.hiddenByDefault.getValue() === true) {
-                this.collapseSection();
-            }
-            this.viewSettings = this.model.findParent('Navigation').getViewSettings();
-            this.viewSettings.activeNodeChangedEvent.on(this.onActiveNodeChanged);
-        };
-        NavigationSectionComponent.prototype.ngOnDestroy = function () {
-            _super.prototype.ngOnDestroy.call(this);
-            this.viewSettings.activeNodeChangedEvent.off(this.onActiveNodeChanged);
-        };
-        NavigationSectionComponent.prototype.toggleAddSection = function () {
-            this.viewSettings.toggleSectionHiddenContents(this.model);
-        };
-        NavigationSectionComponent.prototype.getModel = function () {
-            return this.model;
-        };
-        NavigationSectionComponent.prototype.expandSection = function ($event) {
-            this.isCollapsed = false;
-        };
-        NavigationSectionComponent.prototype.collapseSection = function ($event) {
-            this.isCollapsed = true;
-            $event && $event.stopPropagation();
-        };
-        NavigationSectionComponent.prototype.onActiveNodeChanged = function (activeNode) {
-            var newActiveNode = this.model.isNodeActive(activeNode.section);
-            if (this.activeNode !== newActiveNode) {
-                this.activeNode = newActiveNode;
-                this.changeDetectorRef.detectChanges();
-            }
-        };
-        NavigationSectionComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ehr-navigation-section',
-                        template: "<div class=\"navigation-section\" id=\"id-{{model.getId()}}\" [ngClass]=\"{ 'is-collapsed': isCollapsed, 'active': activeNode }\">\r\n    <div class=\"header\" (click)=\"expandSection($event)\">\r\n        <div class=\"corner\"></div>\r\n        <span class=\"label\">\r\n            <span class=\"label-text\">\r\n                <span class=\"plus\">\r\n                    <sc-svg-icon type=\"plus\" size=\"s\"></sc-svg-icon>\r\n                </span>\r\n               {{ model.getDescription() }}\r\n            </span>\r\n        </span>\r\n        <span class=\"label-end-position-holder\">\r\n            <span class=\"clear\" (click)=\"collapseSection($event)\">\r\n                <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n            </span>\r\n        </span>\r\n    </div>\r\n    <div class=\"content\">\r\n        <div class=\"slot-container\" *ngFor=\"let slot of model.getSlots()\">\r\n            <ehr-root-slot class=\"slot\"\r\n                           [reload]=\"reloadId\"\r\n                           [component]=\"slot.getComponent()\"\r\n                           [model]=\"slot\"></ehr-root-slot>\r\n        </div>\r\n        <div class=\"navigation-section__add-button\" *ngIf=\"model.hasHideableSections\" (click)=\"toggleAddSection()\">\r\n            <sc-svg-icon type=\"plus\" size=\"s\"></sc-svg-icon> <span class=\"navigation-section__add-button_text\">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0440\u0430\u0437\u0434\u0435\u043B</span>\r\n        </div>\r\n    </div>\r\n</div>\r\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: [":host .navigation-section{background-color:#fff;border:1px dashed #ccc;border-radius:4px;display:flex;flex-direction:column}:host .navigation-section.active{border:1px dashed #ffe066}:host .navigation-section.active .header .corner:before{content:''}:host .navigation-section.is-collapsed .header{cursor:pointer}:host .navigation-section.is-collapsed .header .label-text{color:#269999}:host .navigation-section.is-collapsed .header .plus{display:block;height:16px;margin-right:12px;width:16px;font-size:12px}:host .navigation-section.is-collapsed .header .clear{display:none}:host .navigation-section.is-collapsed .header:hover{background-color:#eaf5f5}:host .navigation-section.is-collapsed .content{display:none}:host .navigation-section__add-button{align-items:center;border:1px dashed #269999;color:#269999;cursor:pointer;display:flex;flex-shrink:0;font-weight:600;height:72px;justify-content:center;margin:16px}:host .navigation-section__add-button:hover{background-color:#eaf5f5}:host .navigation-section__add-button>sc-svg-icon{display:block;height:16px;margin-right:8px;width:16px}:host .navigation-section__add-button_text{border-bottom:1px dashed #269999;line-height:24px;font-size:15px}:host .navigation-section ::ng-deep .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section{background-color:#fafafa}:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-section,:host .navigation-section ::ng-deep .navigation-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section .navigation-section{background-color:#fff}:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-section,:host .navigation-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-section,:host .navigation-section ::ng-deep .navigation-section .navigation-section .navigation-hideable-section,:host .navigation-section ::ng-deep .navigation-section .navigation-section .navigation-section{background-color:#fafafa}:host .header{align-items:center;background-color:transparent;border-bottom:0;display:flex;padding:16px}:host .header .corner{border-radius:4px 0 0;display:block;position:absolute;overflow:hidden;top:0;left:0;height:24px;width:24px}:host .header .corner:before{border:24px solid transparent;border-left:24px solid #ffe066;display:block;height:0;left:0;position:absolute;top:-24px;width:0}:host .content{display:flex;flex-direction:column;margin:0 16px}:host .content .slot-container{margin-bottom:16px}:host .label-container{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-end-position-holder{margin-left:auto}:host .clear{border-bottom:0;cursor:pointer;display:block;opacity:.5;color:#269999}:host .clear:hover{opacity:1}:host .clear sc-svg-icon{display:block}:host .plus{display:none}:host .plus sc-svg-icon{display:block}:host .label{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-text{align-items:center;display:flex;color:#000;font-size:18px;font-weight:600;line-height:24px}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        NavigationSectionComponent.ctorParameters = function () {
-            return [
-                { type: core.ChangeDetectorRef }
-            ];
-        };
-        NavigationSectionComponent.propDecorators = {
-            model: [{ type: core.Input }],
-            isCollapsed: [{ type: core.Input }]
-        };
-        __decorate([
-            Bind,
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [SectionNode]),
-            __metadata("design:returntype", void 0)
-        ], NavigationSectionComponent.prototype, "onActiveNodeChanged", null);
-        NavigationSectionComponent = __decorate([
-            rendererAngular.AssignModel(NavigationSection),
-            __metadata("design:paramtypes", [core.ChangeDetectorRef])
-        ], NavigationSectionComponent);
-        return NavigationSectionComponent;
-    }(rendererAngular.BasicComponent));
-
-    var NavigationHideableSectionComponent = /** @class */ (function (_super) {
-        __extends(NavigationHideableSectionComponent, _super);
-        function NavigationHideableSectionComponent(changeDetectorRef) {
-            var _this = _super.call(this, changeDetectorRef) || this;
-            _this.isCollapsed = false;
-            return _this;
-        }
-        NavigationHideableSectionComponent.prototype.ngOnInit = function () {
-            _super.prototype.ngOnInit.call(this);
-            if (this.model.hiddenByDefault.getValue() === true) {
-                this.hideSection();
-            }
-        };
-        NavigationHideableSectionComponent.prototype.getModel = function () {
-            return this.model;
-        };
-        NavigationHideableSectionComponent.prototype.hideSection = function () {
-            this.model.isHidden = true;
-        };
-        NavigationHideableSectionComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ehr-navigation-hideable-section',
-                        template: "<div class=\"navigation-hideable-section\" [ngClass]=\"{'is-hidden': model.isHidden, 'active': activeNode}\" id=\"id-{{model.getId()}}\">\r\n    <div class=\"header\">\r\n        <div class=\"corner\"></div>\r\n        <span class=\"label\">\r\n            <span class=\"label-text\">\r\n                {{model.getDescription()}}\r\n            </span>\r\n        </span>\r\n        <span class=\"label-end-position-holder\">\r\n            <span class=\"clear\" (click)=\"hideSection()\">\r\n                <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n            </span>\r\n        </span>\r\n\r\n    </div>\r\n    <div class=\"content\">\r\n        <div class=\"slot-container\" *ngFor=\"let slot of model.getSlots()\">\r\n            <ehr-root-slot class=\"slot\"\r\n                           [reload]=\"reloadId\"\r\n                           [component]=\"slot.getComponent()\"\r\n                           [model]=\"slot\"></ehr-root-slot>\r\n        </div>\r\n    </div>\r\n</div>\r\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: [":host .navigation-hideable-section{background-color:#fafafa;border:1px dashed #ccc;border-radius:4px;display:flex;flex-direction:column}:host .navigation-hideable-section.is-hidden{display:none}:host .navigation-hideable-section.active{border:1px dashed #ffe066}:host .navigation-hideable-section.active .header .corner:before{content:''}:host .navigation-hideable-section ::ng-deep .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section{background-color:#fafafa}:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-section{background-color:#fff}:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-hideable-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-hideable-section .navigation-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-hideable-section .navigation-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-section .navigation-hideable-section,:host .navigation-hideable-section ::ng-deep .navigation-section .navigation-section .navigation-section{background-color:#fafafa}:host .header{align-items:center;background-color:transparent;border-bottom:0;display:flex;padding:16px}:host .header .corner{border-radius:4px 0 0;display:block;position:absolute;overflow:hidden;top:0;left:0;height:24px;width:24px}:host .header .corner:before{border:24px solid transparent;border-left:24px solid #ffe066;display:block;height:0;left:0;position:absolute;top:-24px;width:0}:host .content{display:flex;flex-direction:column;margin:0 16px}:host .content .slot-container{margin-bottom:16px}:host .label-container{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-end-position-holder{margin-left:auto}:host .clear{border-bottom:0;cursor:pointer;display:block;opacity:.5;color:#269999}:host .clear:hover{opacity:1}:host .clear sc-svg-icon{display:block}:host .label{align-items:center;display:flex;margin-right:16px;position:relative;z-index:5}:host .label-text{color:#000;font-size:18px;font-weight:600;line-height:24px}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        NavigationHideableSectionComponent.ctorParameters = function () {
-            return [
-                { type: core.ChangeDetectorRef }
-            ];
-        };
-        NavigationHideableSectionComponent.propDecorators = {
-            model: [{ type: core.Input }],
-            isCollapsed: [{ type: core.Input }]
-        };
-        NavigationHideableSectionComponent = __decorate([
-            rendererAngular.AssignModel(NavigationHideableSection),
-            __metadata("design:paramtypes", [core.ChangeDetectorRef])
-        ], NavigationHideableSectionComponent);
-        return NavigationHideableSectionComponent;
-    }(NavigationSectionComponent));
-
-    var NavigationContentsComponent = /** @class */ (function () {
-        function NavigationContentsComponent(changeDetectorRef) {
-            this.changeDetectorRef = changeDetectorRef;
-            this.nestingLevel = 0;
-            this.unsubscriber = new rxjs.Subscription();
-        }
-        NavigationContentsComponent.prototype.ngOnInit = function () {
-            var _this = this;
-            this.unsubscriber.add(this.model.getViewSettings().sectionToggled.subscribe(function () {
-                _this.changeDetectorRef.detectChanges();
-            }));
-            this.model.getViewSettings().activeNodeChangedEvent.on(this.onActiveNodeChanged);
-        };
-        NavigationContentsComponent.prototype.ngOnDestroy = function () {
-            this.unsubscriber.unsubscribe();
-            this.model.getViewSettings().activeNodeChangedEvent.off(this.onActiveNodeChanged);
-        };
-        NavigationContentsComponent.prototype.getItemName = function (sectionNode) {
-            return sectionNode.section.getDescription();
-        };
-        NavigationContentsComponent.prototype.isButtonVisible = function (node) {
-            return node.section.hasHideableSections;
-        };
-        NavigationContentsComponent.prototype.onAction = function (slot, actionID) {
-            slot.getActions()
-                .find(function (action) { return action.id === actionID; })
-                .action();
-            this.changeDetectorRef.detectChanges();
-        };
-        NavigationContentsComponent.prototype.hasNestingLevel = function (node) {
-            return node.children &&
-                node.children.length &&
-                this.model.nestingLevels.getValue() > this.nestingLevel;
-        };
-        NavigationContentsComponent.prototype.scrollTo = function (node) {
-            document.querySelector("#id-" + node.section.getId()).scrollIntoView({ behavior: 'smooth' });
-            this.model.getViewSettings().setSectionAsActive(node);
-            this.model.getViewSettings().preventScroll = true;
-        };
-        NavigationContentsComponent.prototype.isSectionHideable = function (node) {
-            return node.section instanceof NavigationHideableSection;
-        };
-        NavigationContentsComponent.prototype.isSectionHidden = function (node) {
-            return this.isSectionHideable(node) && node.section.isHidden;
-        };
-        NavigationContentsComponent.prototype.toggleHideableSection = function (node) {
-            node.section.toggleHiddenState();
-        };
-        NavigationContentsComponent.prototype.isNodeActive = function (node) {
-            return node === this.activeNode;
-        };
-        NavigationContentsComponent.prototype.onActiveNodeChanged = function (activeNode) {
-            if (this.activeNode !== activeNode) {
-                this.activeNode = activeNode;
-                this.changeDetectorRef.detectChanges();
-            }
-        };
-        NavigationContentsComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ehr-navigation-contents',
-                        template: "<div class=\"content-item\" *ngFor=\"let node of sectionNodes\" >\r\n    <div class=\"content-item__wrapper\" *ngIf=\"!isSectionHidden(node)\">\r\n        <div class=\"content-item__wrapper_name\"\r\n             [ngClass]=\"{'is-active': activeNode === node}\"\r\n             (click)=\"scrollTo(node)\">\r\n            {{ node.section.getDescription() }}\r\n        </div>\r\n        <ng-container *ngIf=\"isSectionHideable(node)\">\r\n            <div class=\"content-item__remove\"  (click)=\"toggleHideableSection(node)\">\r\n                <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n            </div>\r\n        </ng-container>\r\n\r\n        <ehr-navigation-contents class=\"content-item__wrapper_contents\" *ngIf=\"hasNestingLevel(node)\"\r\n                                 [model]=\"model\"\r\n                                 [sectionNodes]=\"node.children\"\r\n                                 [nestingLevel]=\"nestingLevel + 1\">\r\n\r\n        </ehr-navigation-contents>\r\n    </div>\r\n    <div class=\"content-item__button\" *ngIf=\"isButtonVisible(node)\" (click)=\"model.getViewSettings().toggleSectionHiddenContents(node.section)\">\r\n        <sc-svg-icon *ngIf=\"model.getViewSettings().currentSectionWithHiddenContent !== node.section\" type=\"plus\" size=\"s\"></sc-svg-icon>\r\n        <sc-svg-icon *ngIf=\"model.getViewSettings().currentSectionWithHiddenContent === node.section\" type=\"chevron-left\" size=\"s\"></sc-svg-icon>\r\n\r\n    </div>\r\n</div>\r\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: [":host{flex:1;overflow:auto;z-index:31;background-color:#fff}.content-item{cursor:pointer;display:flex;font-size:15px;font-weight:600;line-height:24px;list-style-type:none;position:relative}.content-item__wrapper{width:100%}.content-item__wrapper_name{padding:8px 48px 8px 24px}.content-item__wrapper_name.is-active{background-color:#fff5b3}.content-item__wrapper .content-item__wrapper:hover>.content-item__remove{opacity:1}.content-item .content-item{font-weight:400}.content-item .content-item .content-item__wrapper{width:100%}.content-item .content-item .content-item__wrapper:hover{background-color:#e9f4f4}.content-item .content-item .content-item__wrapper_name{padding:4px 24px 4px 40px}.content-item__remove{display:flex;justify-content:center;height:32px;left:0;opacity:0;position:absolute;top:0;width:32px}.content-item__remove:hover{background-color:#dfefef}.content-item__remove:hover>sc-svg-icon{font-size:32px;opacity:1}.content-item__remove>sc-svg-icon{color:#269999;font-size:32px;opacity:.7}.content-item__button{align-items:center;background-color:#ebf8f8;border-radius:16px;cursor:pointer;display:flex;flex:0 0 32px;justify-content:center;margin:0 8px;text-align:center;width:32px}.content-item__button>sc-svg-icon{color:#269999;opacity:.7}.content-item__button:hover{background-color:#d7f0f0}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        NavigationContentsComponent.ctorParameters = function () {
-            return [
-                { type: core.ChangeDetectorRef }
-            ];
-        };
-        NavigationContentsComponent.propDecorators = {
-            sectionNodes: [{ type: core.Input }],
-            nestingLevel: [{ type: core.Input }],
-            model: [{ type: core.Input }]
-        };
-        __decorate([
-            Bind,
-            __metadata("design:type", Function),
-            __metadata("design:paramtypes", [SectionNode]),
-            __metadata("design:returntype", void 0)
-        ], NavigationContentsComponent.prototype, "onActiveNodeChanged", null);
-        return NavigationContentsComponent;
-    }());
-
-    var NavigationHiddenContentsComponent = /** @class */ (function () {
-        function NavigationHiddenContentsComponent() {
-            this.hiddenSections = [];
-        }
-        NavigationHiddenContentsComponent.prototype.ngOnChanges = function () {
-            this.formHiddenSections();
-        };
-        NavigationHiddenContentsComponent.prototype.toggleHideableSection = function (section) {
-            section.toggleHiddenState();
-        };
-        NavigationHiddenContentsComponent.prototype.formHiddenSections = function () {
-            var _this = this;
-            this.hiddenSections.length = 0;
-            this.sectionNodes.forEach(function (node) {
-                if (node.section === _this.model.getViewSettings().currentSectionWithHiddenContent) {
-                    node.children.forEach(function (child) {
-                        if (child.section instanceof NavigationHideableSection && child.section.isHidden) {
-                            _this.hiddenSections.push(child.section);
-                        }
-                    });
-                }
-            });
-        };
-        NavigationHiddenContentsComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ehr-navigation-hidden-contents',
-                        template: "<div class=\"header\">\r\n    <div class=\"header__title\">\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043D\u0443\u0436\u043D\u044B\u0435 \u0440\u0430\u0437\u0434\u0435\u043B\u044B \u043E\u0441\u043C\u043E\u0442\u0440\u0430</div>\r\n    <span class=\"header__close\" (click)=\"model.getViewSettings().closeSectionHiddenContents()\">\r\n        <sc-svg-icon type=\"close\" size=\"s\"></sc-svg-icon>\r\n    </span>\r\n</div>\r\n<div class=\"content\">\r\n    <div class=\"section\">\r\n        <li class=\"section__item\" (click)=\"toggleHideableSection(section)\"\r\n             *ngFor=\"let section of hiddenSections\">\r\n            <div class=\"section__item-inner\">\r\n                <sc-svg-icon type=\"plus\" size=\"s\"></sc-svg-icon>\r\n                {{section.getDescription()}}\r\n            </div>\r\n        </li>\r\n    </div>\r\n</div>\r\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: [":host{background-color:#fff;border-right:1px solid #ccc;display:flex;flex-direction:column;height:100%;left:calc(100% + 1px);overflow:auto;position:absolute;top:0;width:312px;z-index:30}:host .header{align-items:flex-start;border-bottom:1px solid #ccc;display:flex;flex:0 0 auto;justify-content:space-between;padding:16px}:host .header__title{color:#333;font-size:15px;line-height:24px}:host .header__close{color:#777;cursor:pointer;height:32px;width:32px}:host .header__close>sc-svg-icon{font-size:32px}:host .header__close:hover{color:#474747}:host .content{flex:1 1 auto;height:100%;overflow:auto}:host .section{padding:0 16px}:host .section__header{display:flex;font-size:15px;font-weight:600;line-height:16px;margin-bottom:8px;padding:8px 8px 8px 0;white-space:nowrap}:host .section__item{display:flex;margin-top:8px}:host .section__item:not(:last-child){margin-bottom:8px}:host .section__item-inner{background-color:#e9f4f4;border-radius:16px;cursor:pointer;font-size:15px;font-weight:400;display:inline-flex;line-height:16px;padding:8px 16px 8px 8px;white-space:nowrap}:host .section__item-inner>sc-svg-icon{color:#269999;margin:0 8px 0 4px;width:16px;line-height:normal}"]
-                    }] }
-        ];
-        NavigationHiddenContentsComponent.propDecorators = {
-            sectionNodes: [{ type: core.Input }],
-            model: [{ type: core.Input }]
-        };
-        return NavigationHiddenContentsComponent;
-    }());
 
     // tslint:disable:only-arrow-functions
     function slideAnimation() {
@@ -1108,7 +1235,7 @@
             return NavigationLibrary.instance;
         };
         NavigationLibrary.prototype.getComponents = function () {
-            return [Navigation, NavigationSection, NavigationHideableSection, UserTemplate];
+            return [Navigation, NavigationSection, NavigationHideableSection, UserTemplate, Messenger];
         };
         NavigationLibrary.prototype.getToolbarGroups = function () {
             return [
@@ -1118,7 +1245,8 @@
                         this.build(Navigation).result(),
                         this.build(NavigationSection).result(),
                         this.build(NavigationHideableSection).result(),
-                        this.build(UserTemplate).result()
+                        this.build(UserTemplate).result(),
+                        this.build(Messenger).result()
                     ],
                 },
             ];
@@ -1143,7 +1271,7 @@
                 var navSlot = _this.getFirstEmptySlot(navigationComp);
                 // Шаг 2. Создаем секцию навигации
                 var navSection;
-                var formContext;
+                var elementContext;
                 var libElement = {
                     type: NavigationSection.className,
                     library: _this.getInfo().code,
@@ -1151,13 +1279,13 @@
                 };
                 if (nestingLevel > 0) {
                     libElement.type = NavigationSection.className;
-                    formContext = new renderer.FormContext(renderer.ElementNode.create(libElement), navSlot);
-                    navSection = new NavigationSection(formContext);
+                    elementContext = new renderer.ElementContext(renderer.ElementNode.create(libElement), navSlot);
+                    navSection = new NavigationSection(elementContext);
                 }
                 else { // Шаг 2.1. Если это последний уровень, то создаем скрываемую секцию
                     libElement.type = NavigationHideableSection.className;
-                    formContext = new renderer.FormContext(renderer.ElementNode.create(libElement), navSlot);
-                    navSection = new NavigationHideableSection(formContext);
+                    elementContext = new renderer.ElementContext(renderer.ElementNode.create(libElement), navSlot);
+                    navSection = new NavigationHideableSection(elementContext);
                 }
                 navSection.bindingPath.setValue(node.path);
                 // Шаг 3. Устанавливаем название секции
@@ -1199,6 +1327,8 @@
          * @returns {ArchetypeNode[]}
          */
         NavigationLibrary.prototype.filterChildNodes = function (childNodes) {
+            if (!childNodes)
+                return [];
             var ignoredSections = ['context', 'category', 'language', 'territory', 'time', 'encoding', 'subject', 'composer', '_link', '_uid', '_other_participation'];
             return childNodes.filter(function (el) { return !ignoredSections.find(function (ignored) { return ignored === el.id; }); });
         };
@@ -1217,20 +1347,27 @@
         }
         NavigationLibraryModule.decorators = [
             { type: core.NgModule, args: [{
-                        imports: [common.CommonModule, http.HttpClientModule, rendererAngular.RendererAngularModule, forms.ReactiveFormsModule, uiKit.UiKitModule],
+                        imports: [
+                            common.CommonModule,
+                            http.HttpClientModule,
+                            rendererAngular.RendererAngularModule,
+                            forms.ReactiveFormsModule,
+                            uiKit.UiKitModule,
+                        ],
                         declarations: [
                             NavigationComponent,
                             NavigationContentsComponent,
                             NavigationSectionComponent,
                             NavigationHideableSectionComponent,
                             NavigationHiddenContentsComponent,
-                            UserTemplateComponent
+                            UserTemplateComponent,
+                            MessengerComponent
                         ],
                         exports: [
                             NavigationComponent,
                             NavigationContentsComponent
                         ],
-                        entryComponents: [NavigationComponent, NavigationSectionComponent, NavigationHideableSectionComponent, UserTemplateComponent],
+                        entryComponents: [NavigationComponent, NavigationSectionComponent, NavigationHideableSectionComponent, UserTemplateComponent, MessengerComponent],
                         providers: [
                             {
                                 provide: core.APP_INITIALIZER,
@@ -1253,6 +1390,8 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.ɵn = Messenger;
+    exports.ɵo = MessengerComponent;
     exports.ɵh = NavigationHideableSectionComponent;
     exports.ɵf = NavigationSectionComponent;
     exports.ɵc = slideAnimation;
