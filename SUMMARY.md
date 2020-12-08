@@ -77,7 +77,13 @@
 
 ## Developer Guide
 
-* [Untitled](developer-guide/untitled.md)
+* [Preparation](developer-guide/untitled.md)
+* [Connect EHR Forms to your application](developer-guide/connect-ehr-forms-to-your-application.md)
+* [Working with the form](developer-guide/working-with-the-form.md)
+* [Add external terminologies \(data providers\) to the form](developer-guide/add-external-terminologies-data-providers-to-the-form.md)
+* [Add environment variables to the form](developer-guide/add-environment-variables-to-the-form.md)
+* [Execute Actions on the form](developer-guide/execute-actions-on-the-form.md)
+* [API Methods](developer-guide/api-methods.md)
 
 ## Video Lessons
 
