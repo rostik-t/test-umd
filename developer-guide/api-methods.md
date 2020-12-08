@@ -80,22 +80,49 @@ Authentication token
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="" path="/api/composition/convert" %}
+{% api-method method="post" host="" path="/api/composition/convert" %}
 {% api-method-summary %}
 Convert composition
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Inp
+Input parameters are:  
+- composition
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-path-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
+{% api-method-parameter name="templateId" type="string" required=true %}
+Template ID
+{% endapi-method-parameter %}
 
+{% api-method-parameter name="formatTo" type="string" required=true %}
+Can be one of the following:   
+- CanonicalXml,   
+- CanonicalJson,   
+- StructuredJSON,   
+- Flat \(in development\),   
+- BpFlat,   
+- TDD \(in development\)
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="formatFrom" type="string" required=true %}
+Can be one of the following:   
+- CanonicalXml,   
+- CanonicalJson,   
+- StructuredJSON,   
+- Flat \(in development\),   
+- BpFlat,   
+- TDD \(in development\)
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
+
+{% api-method-body-parameters %}
+{% api-method-parameter name="composition" type="string" required=true %}
+openEHR Composition in \[formatFrom\] format
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
