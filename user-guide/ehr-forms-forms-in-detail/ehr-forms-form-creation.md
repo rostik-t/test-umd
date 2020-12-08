@@ -1,31 +1,5 @@
 # Form creation
 
-Quick guide to Form creation contains the following steps:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432782177 {padding: 0px;}  
-div.rbtoc1607432782177 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432782177 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [1. Form creation](ehr-forms-form-creation.md#Formcreation-1.Formcreation)
-  * [1.1 Creating new Form](ehr-forms-form-creation.md#Formcreation-1.1CreatingnewForm)
-* [2. Filling out the form](ehr-forms-form-creation.md#Formcreation-2.Fillingouttheform)
-  * [2.1 Generating the Form from the selected Template\(s\)](ehr-forms-form-creation.md#Formcreation-2.1GeneratingtheFormfromtheselectedTemplate%28s%29)
-  * [2.2 Adding Templates to the Form](ehr-forms-form-creation.md#Formcreation-2.2AddingTemplatestotheForm)
-  * [2.3 Drag-and-drop to fill the Form](ehr-forms-form-creation.md#Formcreation-2.3Drag-and-droptofilltheForm)
-* [3. Configuring Bindings and Properties](ehr-forms-form-creation.md#Formcreation-3.ConfiguringBindingsandProperties)
-  * [3.1 Binding components to the selected Template](ehr-forms-form-creation.md#Formcreation-3.1BindingcomponentstotheselectedTemplate)
-  * [3.2 Configuring component settings](ehr-forms-form-creation.md#Formcreation-3.2Configuringcomponentsettings)
-    * [Configuring component settings using Settings panel](ehr-forms-form-creation.md#Formcreation-ConfiguringcomponentsettingsusingSettingspanel)
-    * [Configuring component settings using Component properties](ehr-forms-form-creation.md#Formcreation-ConfiguringcomponentsettingsusingComponentproperties)
-  * [3.2.1 Working with Converter](ehr-forms-form-creation.md#Formcreation-3.2.1WorkingwithConverter)
-  * [3.2.2 Working with Handler](ehr-forms-form-creation.md#Formcreation-3.2.2WorkingwithHandler)
-  * [3.3 Binding External Terminologies to Components](ehr-forms-form-creation.md#Formcreation-3.3BindingExternalTerminologiestoComponents)
-* [4. Form validation](ehr-forms-form-creation.md#Formcreation-4.Formvalidation)
-* [5. Saving the Form ](ehr-forms-form-creation.md#Formcreation-5.SavingtheForm)
-
 For more details see [Form editing](https://wiki.solit-clouds.ru/display/EHR/Form+editing)
 
 ## 1. Form creation <a id="Formcreation-1.Formcreation"></a>

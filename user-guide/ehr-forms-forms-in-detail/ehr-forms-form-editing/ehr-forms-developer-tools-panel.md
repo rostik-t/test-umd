@@ -1,20 +1,5 @@
 # Developer tools panel
 
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432788995 {padding: 0px;}  
-div.rbtoc1607432788995 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432788995 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Developer tools panel description](ehr-forms-developer-tools-panel.md#Developertoolspanel-Developertoolspaneldescription)
-  * [Messages Tab](ehr-forms-developer-tools-panel.md#Developertoolspanel-MessagesTab)
-  * [JSON Tab](ehr-forms-developer-tools-panel.md#Developertoolspanel-JSONTab)
-  * [Validation Tab](ehr-forms-developer-tools-panel.md#Developertoolspanel-ValidationTab)
-  * [Version Tab](ehr-forms-developer-tools-panel.md#Developertoolspanel-VersionTab)
-  * [My drafts Tab](ehr-forms-developer-tools-panel.md#Developertoolspanel-MydraftsTab)
-  * [Widgets Tab](ehr-forms-developer-tools-panel.md#Developertoolspanel-WidgetsTab)
-
 | Messages Tab | ![](../../../.gitbook/assets/34834104.png) |
 | :--- | :--- |
 | JSON Tab | ![](../../../.gitbook/assets/34834103.png) |

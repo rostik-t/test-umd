@@ -2,30 +2,6 @@
 
 This page is under construction
 
-This section of the user guide contains the following:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432782670 {padding: 0px;}  
-div.rbtoc1607432782670 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432782670 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [1. Working with Templates](./#Formediting-1.WorkingwithTemplates)
-  * [1.1 Template management](./#Formediting-1.1Templatemanagement)
-  * [1.2 Generating the Form from the Selected openEHR Template\(s\)](./#Formediting-1.2GeneratingtheFormfromtheSelectedopenEHRTemplate%28s%29)
-* [2. Working with Components](./#Formediting-2.WorkingwithComponents)
-  * [2.1 Components ](./#Formediting-2.1Components)
-  * [2.2 Adding Visual Components to The Form](./#Formediting-2.2AddingVisualComponentstoTheForm)
-  * [2.3 Configuring component settings](./#Formediting-2.3Configuringcomponentsettings)
-* [3. Bindings, properties and advanced logic](./#Formediting-3.Bindings,propertiesandadvancedlogic)
-  * [3.1 Working on Form Layout](./#Formediting-3.1WorkingonFormLayout)
-  * [3.2 Binding External Terminologies to Components](./#Formediting-3.2BindingExternalTerminologiestoComponents)
-  * [3.3 Defining Advanced Logic on The Form](./#Formediting-3.3DefiningAdvancedLogiconTheForm)
-  * [3.4 Creating Reusable Widgets](./#Formediting-3.4CreatingReusableWidgets)
-* [4. Form validation](./#Formediting-4.Formvalidation)
-  * [4.1 Section Testing](./#Formediting-4.1SectionTesting)
-
 In the **Form Editor** User can:
 
 * Configure or view “building blocks” and data structures for the form \(openEHR templates and visual components\)

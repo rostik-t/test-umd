@@ -18,5 +18,5 @@ Modal dialog is a graphical control element subordinate to a [Form](../ehr-forms
 
 3\) Specify **Action** property in **Converter** using JS language if necessary
 
-For more details see [Form creation\#3.2.1WorkingwithConverter](https://wiki.solit-clouds.ru/display/EHR/Form+creation#Formcreation-3.2.1WorkingwithConverter)
+For more details see [Working With Converter \(Form creation\)](https://app.gitbook.com/@terekhov-rost/s/ehr-forms-docs/~/drafts/-MO25gr6PgUmqWY0d7xc/user-guide/ehr-forms-forms-in-detail/ehr-forms-form-creation#Formcreation-3.2.1WorkingwithConverter)
 

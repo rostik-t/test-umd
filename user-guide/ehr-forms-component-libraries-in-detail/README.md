@@ -10,20 +10,6 @@ Visual component is not only something simple to be rendered on the screen for i
 
                                                                                                                                                   **Components tab**
 
-Components is intended for the following:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432791895 {padding: 0px;}  
-div.rbtoc1607432791895 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432791895 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Component Library Search](./#Componentlibraries%28indetail%29-ComponentLibrarySearch)
-* [Creating component library](./#Componentlibraries%28indetail%29-Creatingcomponentlibrary)
-* [Adding component library ](./#Componentlibraries%28indetail%29-Addingcomponentlibrary)
-* [Editing component library](./#Componentlibraries%28indetail%29-Editingcomponentlibrary)
-
 ## EHR Form model description <a id="Componentlibraries(indetail)-EHRFormmodeldescription"></a>
 
 In **EHR Forms** context **openEHR Template** is a composition of **openEHR Archetypes** represented as a single **OPT file** converted to JSON \(simplified template\).

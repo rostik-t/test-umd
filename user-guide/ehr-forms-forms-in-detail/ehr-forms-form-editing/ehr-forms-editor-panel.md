@@ -1,19 +1,5 @@
 # Editor panel
 
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432784537 {padding: 0px;}  
-div.rbtoc1607432784537 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432784537 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Editor panel](ehr-forms-editor-panel.md#Editorpanel-Editorpanel)
-* [Editor panel description](ehr-forms-editor-panel.md#Editorpanel-Editorpaneldescription)
-  * [Slot container](ehr-forms-editor-panel.md#Editorpanel-Slotcontainer)
-  * [Slot](ehr-forms-editor-panel.md#Editorpanel-Slot)
-    * [Property Binding Window](ehr-forms-editor-panel.md#Editorpanel-PropertyBindingWindow)
-  * [Widget](ehr-forms-editor-panel.md#Editorpanel-Widget)
-
 ## Editor panel <a id="Editorpanel-Editorpanel"></a>
 
 ![](../../../.gitbook/assets/34834614.png)

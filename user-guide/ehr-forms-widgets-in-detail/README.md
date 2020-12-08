@@ -4,26 +4,6 @@
 
 Widgets and archetypes are associated with **Widget class** representation. **Widget class** is a projection of archetypes and archetype slots. **Widget classes** allow to implement a search algorithm which is used to find widgets for a selected archetype and reuse widgets in a form building process.
 
-Widget list is intended for the following:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432789915 {padding: 0px;}  
-div.rbtoc1607432789915 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432789915 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [The Widgets tab overview](./#Widgets%28indetail%29-TheWidgetstaboverview)
-* [Widget list](./#Widgets%28indetail%29-Widgetlist)
-* [Widget search](./#Widgets%28indetail%29-Widgetsearch)
-* [Widget import and export](./#Widgets%28indetail%29-Widgetimportandexport)
-  * [Import](./#Widgets%28indetail%29-Import)
-  * [Export](./#Widgets%28indetail%29-Export)
-* [Widget creation](./#Widgets%28indetail%29-Widgetcreation)
-* [Widget editing](./#Widgets%28indetail%29-Widgetediting)
-* [Widget description](./#Widgets%28indetail%29-Widgetdescription)
-* * [Widget version control](./#Widgets%28indetail%29-Widgetversioncontrol)
-
 ![](../../.gitbook/assets/34833652.png)
 
 **Widgets tab view**

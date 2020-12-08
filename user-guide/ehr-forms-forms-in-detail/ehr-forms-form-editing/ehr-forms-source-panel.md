@@ -1,19 +1,5 @@
 # Source panel
 
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432782998 {padding: 0px;}  
-div.rbtoc1607432782998 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432782998 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Source panel](ehr-forms-source-panel.md#Sourcepanel-Sourcepanel)
-* * [Source panel description](ehr-forms-source-panel.md#Sourcepanel-Sourcepaneldescription)
-  * [Templates Tab](ehr-forms-source-panel.md#Sourcepanel-TemplatesTab)
-  * [Components Tab](ehr-forms-source-panel.md#Sourcepanel-ComponentsTab)
-  * [Terminologies Tab](ehr-forms-source-panel.md#Sourcepanel-TerminologiesTab)
-  * [Environment Tab](ehr-forms-source-panel.md#Sourcepanel-EnvironmentTab)
-
 ## Source panel <a id="Sourcepanel-Sourcepanel"></a>
 
 | Templates Tab | Components Tab | Terminologies Tab | Environment Tab |

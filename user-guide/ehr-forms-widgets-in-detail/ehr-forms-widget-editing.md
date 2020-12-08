@@ -2,20 +2,6 @@
 
 This page is under construction
 
-In the **Widget Editor** User can:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432790389 {padding: 0px;}  
-div.rbtoc1607432790389 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432790389 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Converting Panel into Widget](ehr-forms-widget-editing.md#Widgetediting-ConvertingPanelintoWidget)
-* [Adding custom reusable widget ](ehr-forms-widget-editing.md#Widgetediting-Addingcustomreusablewidget)
-* [Widget cloning ](ehr-forms-widget-editing.md#Widgetediting-Widgetcloning)
-* [Converting Widget into Panel](ehr-forms-widget-editing.md#Widgetediting-ConvertingWidgetintoPanel)
-
 General view
 
 ![](../../.gitbook/assets/34833973.png)

@@ -1,19 +1,5 @@
 # Settings panel
 
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432786815 {padding: 0px;}  
-div.rbtoc1607432786815 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432786815 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Settings panel description](ehr-forms-settings-panel.md#Settingspanel-Settingspaneldescription)
-  * [Form Properties Tab](ehr-forms-settings-panel.md#Settingspanel-FormPropertiesTab)
-  * [Slot Properties Tab](ehr-forms-settings-panel.md#Settingspanel-SlotPropertiesTab)
-  * [Structure Tab](ehr-forms-settings-panel.md#Settingspanel-StructureTab)
-  * [Testing Tab](ehr-forms-settings-panel.md#Settingspanel-TestingTab)
-  * [Actions Tab](ehr-forms-settings-panel.md#Settingspanel-ActionsTab)
-
 | Form Properties Tab | Slot Properties Tab | Structure Tab | Testing Tab | Actions Tab |
 | :--- | :--- | :--- | :--- | :--- |
 | ![](../../../.gitbook/assets/34834859.png) | ![](../../../.gitbook/assets/34834860.png) | ![](../../../.gitbook/assets/34834862.png) | ![](../../../.gitbook/assets/34834863.png) | ![](../../../.gitbook/assets/34834864.png) |
