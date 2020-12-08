@@ -1,4 +1,4 @@
-# Getting started
+# Getting Started
 
 **EHR Forms** is designed to simplify and speed up development of any kind of applications using openEHR as a foundation. Primary goal is to get rid of openEHR template and archetype complicity when creating UI and to bring as much reusability and versality in the process as possible.
 
