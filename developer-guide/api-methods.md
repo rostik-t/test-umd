@@ -54,13 +54,13 @@ Get form
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-path-parameters %}
-{% api-method-parameter name="id" type="string" required=false %}
+{% api-method-parameter name="id" type="string" required=true %}
 id format is \[GUID\]:\[version\]. Pass only GUID in request if you want to get the highest form version
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 
 {% api-method-headers %}
-{% api-method-parameter name="X-AUTHENTICATION-TOKEN" type="string" required=false %}
+{% api-method-parameter name="X-AUTHENTICATION-TOKEN" type="string" required=true %}
 Authentication token
 {% endapi-method-parameter %}
 {% endapi-method-headers %}
@@ -117,6 +117,12 @@ Can be one of the following:
 - TDD \(in development\)
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
+
+{% api-method-headers %}
+{% api-method-parameter name="X-AUTHENTICATION-TOKEN" type="string" required=true %}
+Authentication token
+{% endapi-method-parameter %}
+{% endapi-method-headers %}
 
 {% api-method-body-parameters %}
 {% api-method-parameter name="composition" type="string" required=true %}
