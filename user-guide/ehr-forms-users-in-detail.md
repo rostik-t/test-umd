@@ -2,19 +2,7 @@
 
 This section explains how to create and manage user accounts. 
 
-To see this section User must have the **Administrator role**, which helps to use the following functions:
-
-**/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432805601 {padding: 0px;}  
-div.rbtoc1607432805601 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432805601 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/**
-
-* [**Logging into the Users section**](ehr-forms-users-in-detail.md#Users%28indetail%29-LoggingintotheUserssection)
-* [**Working with User roles**](ehr-forms-users-in-detail.md#Users%28indetail%29-WorkingwithUserroles)
-* [**Creating user account**](ehr-forms-users-in-detail.md#Users%28indetail%29-Creatinguseraccount)
-* [**Disabling user account**](ehr-forms-users-in-detail.md#Users%28indetail%29-Disablinguseraccount)
+To see this section User must have the **Administrator role**
 
 ![](../.gitbook/assets/34833838.png)
 

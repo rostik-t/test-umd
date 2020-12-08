@@ -6,20 +6,6 @@ In **EHR Forms** context **openEHR Template** is a composition of **openEHR Arch
 
 The tab is intended for viewing the list of templates available within the team, searching, viewing the structure of the template, importing opt templates and viewing the list of forms connected with the template.
 
-Template list is intended for the following:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432802607 {padding: 0px;}  
-div.rbtoc1607432802607 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432802607 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Template list](./#Templates%28Useruploaded%29%28indetail%29-Templatelist)
-* [Template search](./#Templates%28Useruploaded%29%28indetail%29-Templatesearch)
-* [Template import](./#Templates%28Useruploaded%29%28indetail%29-Templateimport)
-* [Template description](./#Templates%28Useruploaded%29%28indetail%29-Templatedescription)
-* 
 ![](../../.gitbook/assets/34833658.png)
 
 **Templates tab view**

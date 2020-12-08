@@ -16,22 +16,6 @@ The concept of “super-team” is introduced, Administrator belonging to the su
 
 **Teams Tab**
 
-Teams section making it easy for teams to collaborate and manage content, using various functions, such as:
-
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432806261 {padding: 0px;}  
-div.rbtoc1607432806261 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432806261 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Teams List](ehr-forms-teams-in-detail.md#Teams%28indetail%29-TeamsList)
-* [Team Search](ehr-forms-teams-in-detail.md#Teams%28indetail%29-TeamSearch)
-* [Adding new team](ehr-forms-teams-in-detail.md#Teams%28indetail%29-Addingnewteam)
-* [Editing team](ehr-forms-teams-in-detail.md#Teams%28indetail%29-Editingteam)
-* [Changing team](ehr-forms-teams-in-detail.md#Teams%28indetail%29-Changingteam)
-* [Entering to another team as a team member](ehr-forms-teams-in-detail.md#Teams%28indetail%29-Enteringtoanotherteamasateammember)
-
 ## Teams List <a id="Teams(indetail)-TeamsList"></a>
 
 At the start there the is a list of teams available.

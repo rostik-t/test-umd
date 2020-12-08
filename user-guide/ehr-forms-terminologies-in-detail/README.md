@@ -2,18 +2,6 @@
 
 The openEHR terminology is an adjunct to the openEHR reference and archetype models, and provides code sets and vocabularies needed by the models which are language independent. It is not a "real-world" ontology of any kind - i.e. it does not contain representation of facts in areas such as diseases or biochemistry - this is the job of much larger terminologies such as ICDx, ICPC and so on.
 
-/\*&lt;!\[CDATA\[\*/  
-div.rbtoc1607432803306 {padding: 0px;}  
-div.rbtoc1607432803306 ul {list-style: disc;margin-left: 0px;}  
-div.rbtoc1607432803306 li {margin-left: 0px;padding-left: 0px;}  
-  
-/\*\]\]&gt;\*/
-
-* [Terminology list](./#Terminologies%28indetail%29-Terminologylist)
-* [Terminology search](./#Terminologies%28indetail%29-Terminologysearch)
-* [Add terminology service](./#Terminologies%28indetail%29-Addterminologyservice)
-* [Terminology description](./#Terminologies%28indetail%29-Terminologydescription)
-* 
 ![](../../.gitbook/assets/34833636.png)
 
 **Terminologies tab view**
