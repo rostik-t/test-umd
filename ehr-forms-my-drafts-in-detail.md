@@ -1,4 +1,4 @@
-# EHR Forms : My drafts \(in detail\)
+# My drafts \(in detail\)
 
 Drafts allows User to create drafts of forms or widgets before publishing them as a new version. Every published form or widget has a set of versions, it's not allowed to  
 publish one version multiple times, new version is always created when user does publish it.
@@ -33,13 +33,13 @@ To create a new draft User should create and **Save as a Draft** form or widget 
 
 ![](.gitbook/assets/34833812.png)
 
-For more details see [Form creation](ehr-forms-form-creation.md) and [Widget creation](ehr-forms-widget-creation.md)
+For more details see [Form creation](ehr-forms-forms-in-detail/ehr-forms-form-creation.md) and [Widget creation](ehr-forms-widgets-in-detail/ehr-forms-widget-creation.md)
 
 ## Draft editing <a id="Mydrafts(indetail)-Draftediting"></a>
 
 To start editing draft User should select desirable draft in the list and click ![](.gitbook/assets/34833794.png)
 
-For more details see [Form editing](ehr-forms-form-editing.md)
+For more details see [Form editing](ehr-forms-forms-in-detail/ehr-forms-form-editing/)
 
 ## Draft description <a id="Mydrafts(indetail)-Draftdescription"></a>
 

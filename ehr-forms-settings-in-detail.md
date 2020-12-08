@@ -1,4 +1,4 @@
-# EHR Forms : Settings \(in detail\)
+# Settings \(in detail\)
 
 Settings section is used for establishing connection with Clinical Data Repository \(CDR\).
 

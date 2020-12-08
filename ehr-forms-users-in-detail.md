@@ -1,4 +1,4 @@
-# EHR Forms : Users \(in detail\)
+# Users \(in detail\)
 
 This section explains how to create and manage user accounts. 
 

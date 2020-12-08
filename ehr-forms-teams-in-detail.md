@@ -1,4 +1,4 @@
-# EHR Forms : Teams \(in detail\)
+# Teams \(in detail\)
 
 Each user has a username and password as part of the team. If one person has access to several teams, then in each team he will have his own username and password.  
 The team members can only see team's forms, widgets, components, templates, terminology, releases and the list of users.
