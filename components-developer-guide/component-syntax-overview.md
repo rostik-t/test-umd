@@ -13,15 +13,9 @@ Component declaration example is:
 export class MultipleExtendedComboboxComponent extends ComboboxGroupExtendedComponent<MultipleExtendedCombobox> implements OnInit {
 ```
 
-Where:
+Where `@Component(...)` decorator is usual Angular decorator for Angular component. It contains links to html and scss files. 
 
-```text
-@Component(...)
-```
-
-decorator is usual Angular decorator for Angular component. It contains links to html and scss files. 
-
-We recommend to use ChangeDetectionStrategy.OnPush always to improve performance. Forms architecture is designed for OnPush strategy in all components.
+We recommend to use `ChangeDetectionStrategy.OnPush` always to improve performance. Forms architecture is designed for `OnPush`strategy in all components.
 
 ```text
 @AssignModel(MultipleExtendedCombobox)
@@ -35,7 +29,7 @@ is a decorator for binding component and model. Please refer to [Component Archi
 export class MultipleExtendedComboboxComponent extends ComboboxGroupExtendedComponent<MultipleExtendedCombobox> implements OnInit {
 ```
 
-This is a child class declaraion. A component class should always be inherited from BasicComponent class or its descendents.
+This is a child class declaraion. A component class should always be inherited from `BasicComponent` class or its descendents.
 
 
 
