@@ -75,7 +75,7 @@
 * [Teams \(in detail\)](user-guide/ehr-forms-teams-in-detail.md)
 * [Settings \(in detail\)](user-guide/ehr-forms-settings-in-detail.md)
 
-## Developer Guide
+## Developer Guide \(integrating forms to application\) <a id="developer-guide"></a>
 
 * [Preparation](developer-guide/untitled.md)
 * [Connect EHR Forms to your application](developer-guide/connect-ehr-forms-to-your-application.md)
@@ -84,6 +84,12 @@
 * [Add environment variables to the form](developer-guide/add-environment-variables-to-the-form.md)
 * [Execute Actions on the form](developer-guide/execute-actions-on-the-form.md)
 * [API Methods](developer-guide/api-methods.md)
+
+## Components Developer Guide
+
+* [Overwiew](components-developer-guide/overwiew.md)
+* [Component architecture overwiew](components-developer-guide/component-architecture-overwiew.md)
+* [Component syntax overview](components-developer-guide/component-syntax-overview.md)
 
 ## Video Lessons
 
