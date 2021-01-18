@@ -1,4 +1,4 @@
-# Component syntax overview
+# Component Syntax Overview
 
 Component declaration example is:
 

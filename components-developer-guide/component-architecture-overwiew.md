@@ -1,4 +1,4 @@
-# Component architecture overwiew
+# Component Architecture Overwiew
 
 A proper designed component consists of model and component classes. Model should contain all business logic and does not know anything about specific framework \(e.g. Angular\). Component should contain only view implementation and no business logic or calculations are permitted there.
 

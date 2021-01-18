@@ -88,8 +88,8 @@
 ## Components Developer Guide
 
 * [Overwiew](components-developer-guide/overwiew.md)
-* [Component architecture overwiew](components-developer-guide/component-architecture-overwiew.md)
-* [Component syntax overview](components-developer-guide/component-syntax-overview.md)
+* [Component Architecture Overwiew](components-developer-guide/component-architecture-overwiew.md)
+* [Component Syntax Overview](components-developer-guide/component-syntax-overview.md)
 
 ## Video Lessons
 

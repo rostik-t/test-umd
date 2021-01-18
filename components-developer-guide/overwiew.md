@@ -5,5 +5,11 @@ New library development can be started with cloning "Library Example Project" wh
 Repo can be found here: [https://gitlab.solit-clouds.ru/ehr/ehr-forms-lib-example](https://gitlab.solit-clouds.ru/ehr/ehr-forms-lib-example)   
 Please contact EHR Forms team for access.
 
+{% page-ref page="component-architecture-overwiew.md" %}
+
+{% page-ref page="component-syntax-overview.md" %}
+
+
+
 
 
