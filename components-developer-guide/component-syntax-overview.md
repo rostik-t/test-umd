@@ -15,7 +15,7 @@ export class MultipleExtendedComboboxComponent extends ComboboxGroupExtendedComp
 
 Where `@Component(...)` decorator is usual Angular decorator for Angular component. It contains links to html and scss files. 
 
-We recommend to use `ChangeDetectionStrategy.OnPush` always to improve performance. Forms architecture is designed for `OnPush`strategy in all components.
+We recommend to use `ChangeDetectionStrategy.OnPush` always to improve performance. EHR Forms architecture is designed for `OnPush`strategy in all components.
 
 ```text
 @AssignModel(MultipleExtendedCombobox)
