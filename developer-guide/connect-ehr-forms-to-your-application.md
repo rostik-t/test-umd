@@ -8,7 +8,7 @@ import { DefaultLibraryModule } from `ehr-forms/default-library-angular’;
 import { NavigationLibraryModule } from `ehr-forms/navigation-library-angular';
 import { LucidusModule } from '`solit/lucidus’;  
 …  
-RendererAngularModule,  
+.forRoot({ locale: 'en' }),  
 DefaultLibraryModule,  
 NavigationLibraryModule,  
 LucidusModule.forRoot(),  
