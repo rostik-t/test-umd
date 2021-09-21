@@ -5,13 +5,13 @@
 1. Execute command in command line:
 
 ```text
-npm adduser --registry=https://nexus.solit-clouds.ru/repository/libs-npm-local/ --scope=@ehr-forms
+npm adduser --registry=https://nexus.solit-clouds.ru/repository/libs-npm-ehr-local/ --scope=@ehr-forms
 ```
 
 2. Execute command in command line:
 
 ```text
-npm adduser --registry=https://nexus.solit-clouds.ru/repository/libs-npm-local/ --scope=@solit
+npm adduser --registry=https://nexus.solit-clouds.ru/repository/libs-npm-ehr-local/ --scope=@solit
 ```
 
 Login and password should be requested from the product owner
@@ -27,7 +27,7 @@ Login and password should be requested from the product owner
     "@ehr-forms/open-ehr-library": "^2.0.0",
     "@ehr-forms/renderer": "^2.0.0",
     "@ehr-forms/renderer-angular": "^2.0.0",
-    "@solit/lucidus": "^9.3.10",
+    "@solit/lucidus": "^9.6.0",
 ...
 ```
 
