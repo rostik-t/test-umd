@@ -13,7 +13,19 @@ EHR Forms component libraries already contain enough bricks to build most compli
 * About 30000 clinicians and medical specialists using these forms every day
 * More than 50 components to use including 3D and audio recognition
 
-{% page-ref page="developer-guide/api-methods.md" %}
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
+{% endcontent-ref %}
 
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
+{% endcontent-ref %}
 
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
+{% endcontent-ref %}
+
+{% content-ref url="developer-guide/api-methods.md" %}
+[api-methods.md](developer-guide/api-methods.md)
+{% endcontent-ref %}
 

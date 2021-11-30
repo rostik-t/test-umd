@@ -1,14 +1,14 @@
 # Panel
 
-## Usage <a id="Panel-Usage"></a>
+## Usage <a href="#panel-usage" id="panel-usage"></a>
 
-A **Panel** is a container component, that displays particular arrangement of information grouped together for presentation to users on the [Forms](../ehr-forms-forms-in-detail/). 
+A **Panel** is a container component, that displays particular arrangement of information grouped together for presentation to users on the [Forms](../ehr-forms-forms-in-detail/).&#x20;
 
 ![](../../.gitbook/assets/34842279.png)
 
-## Working with Panel: <a id="Panel-WorkingwithPanel:"></a>
+## Working with Panel: <a href="#panel-workingwithpanel" id="panel-workingwithpanel"></a>
 
-1\) Go to **Default Library Components** and drag the **Panel**  ****from the **Default Library Containers** section
+1\) Go to **Default Library Components** and drag the **Panel** **** from the **Default Library Containers** section
 
 ![](../../.gitbook/assets/34839842.png)
 
@@ -16,9 +16,8 @@ A **Panel** is a container component, that displays particular arrangement of in
 
 ![](../../.gitbook/assets/34839843.png)
 
-3\) Specify necessary properties such as **Available values** \(which is set using **Chain button**\) using data sources of the Template for this new component 
+3\) Specify necessary properties such as **Available values** (which is set using **Chain button**) using data sources of the Template for this new component&#x20;
 
 4\) Specify **Action** property in **Converter** using JS language if necessary
 
-For more details see [Form creation\#3.2.1WorkingwithConverter](https://wiki.solit-clouds.ru/display/EHR/Form+creation#Formcreation-3.2.1WorkingwithConverter)
-
+For more details see [Form creation#3.2.1WorkingwithConverter](https://wiki.solit-clouds.ru/display/EHR/Form+creation#Formcreation-3.2.1WorkingwithConverter)
