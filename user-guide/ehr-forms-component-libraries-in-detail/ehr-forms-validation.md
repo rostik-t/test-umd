@@ -33,11 +33,11 @@ Important
 
 The value binds to the value - where the System allows user to bind. Available values are bind to a list of values if internal terminology is used. The default values from the template are bind to the default values.
 
-{% file src="../../.gitbook/assets/4.png" %}
+![](../../.gitbook/assets/4.png)
 
 5\) Add **Validation Handler** property **** for the Validation component. Add **External Validation** and **Value** binds (Available values bind is for multiple components) from Structure to **Validation Handler** property
 
-{% file src="../../.gitbook/assets/5.png" %}
+![](../../.gitbook/assets/5.png)
 
 &#x20;6\) In the handler, add a condition for the validity of the value, for example:
 
