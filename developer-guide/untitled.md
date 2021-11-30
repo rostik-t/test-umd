@@ -2,23 +2,23 @@
 
 
 
-1. Execute command in command line:
+1\. Execute command in command line:
 
-```text
+```
 npm adduser --registry=https://nexus.solit-clouds.ru/repository/libs-npm-local/ --scope=@ehr-forms
 ```
 
-2. Execute command in command line:
+2\. Execute command in command line:
 
-```text
+```
 npm adduser --registry=https://nexus.solit-clouds.ru/repository/libs-npm-local/ --scope=@solit
 ```
 
 Login and password should be requested from the product owner
 
-3. In your `package.json` file add following dependencies:
+3\. In your `package.json` file add following dependencies:
 
-```text
+```
 "dependencies": {
     ....
     "@ehr-forms/default-library": "^2.0.0",
@@ -31,9 +31,9 @@ Login and password should be requested from the product owner
 ...
 ```
 
-4. Copy UI Kit assets to your build folder, change your `angular.json` this way:
+4\. Copy UI Kit assets to your build folder, change your `angular.json` this way:
 
-```text
+```
 "build": {
 ...
     "options": {
@@ -53,9 +53,8 @@ Login and password should be requested from the product owner
 },
 ```
 
-5. Add import to ypur global `scss` styles
+5\. Add import to ypur global `scss` styles
 
-```text
+```
 @import '~@solit/lucidus/assets/styles/index';
 ```
-

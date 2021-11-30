@@ -14,7 +14,7 @@ To import widget from a file:
 
 ![](../../.gitbook/assets/34833522.png)
 
-To export your widget\(s\):
+To export your widget(s):
 
 * Log in and go to **Widgets**.
 
@@ -22,15 +22,14 @@ To export your widget\(s\):
 
 * Select one or more widgets in the list by using a checkbox next to the widget name.
 
-          Use upper checkbox to select all widgets from the list.
+&#x20;         Use upper checkbox to select all widgets from the list.
 
 ![](../../.gitbook/assets/34833524.png)
 
-* Click ![](../../.gitbook/assets/34833525.png) 
+* Click ![](../../.gitbook/assets/34833525.png)&#x20;
 
- The selected widgets will be exported from your account and downloaded to the default folder on your local drive.
+&#x20;The selected widgets will be exported from your account and downloaded to the default folder on your local drive.
 
 Also user can Import\Export widget in editing mode by using corresponding buttons on the Actions tab:
 
 ![](../../.gitbook/assets/34833529.png)
-

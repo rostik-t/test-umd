@@ -2,146 +2,138 @@
 
 Following methods may be used while working with forms:
 
-Please include header with token: `X-AUTHENTICATION-TOKEN`: \(token should be requested from EHR Forms product owner\)
+Please include header with token: `X-AUTHENTICATION-TOKEN`: (token should be requested from EHR Forms product owner)
 
-{% api-method method="get" host="" path="/api/template/{ id }" %}
-{% api-method-summary %}
-Get Template
-{% endapi-method-summary %}
+{% swagger baseUrl="" path="/api/template/{ id }" method="get" summary="Get Template" %}
+{% swagger-description %}
 
-{% api-method-description %}
+{% endswagger-description %}
 
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="id" type="string" required=true %}
+{% swagger-parameter in="path" name="id" type="string" %}
 Template ID
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+{% endswagger-parameter %}
 
-{% api-method-headers %}
-{% api-method-parameter name="X-AUTHENTICATION-TOKEN" type="string" required=true %}
+{% swagger-parameter in="header" name="X-AUTHENTICATION-TOKEN" type="string" %}
 Authentication token
-{% endapi-method-parameter %}
-{% endapi-method-headers %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
-
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="" path="/api/form/{ id }" %}
-{% api-method-summary %}
-Get form
-{% endapi-method-summary %}
+{% swagger baseUrl="" path="/api/form/{ id }" method="get" summary="Get form" %}
+{% swagger-description %}
 
-{% api-method-description %}
+{% endswagger-description %}
 
-{% endapi-method-description %}
+{% swagger-parameter in="path" name="id" type="string" %}
+id format is [GUID]:[version]. Pass only GUID in request if you want to get the highest form version
+{% endswagger-parameter %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="id" type="string" required=true %}
-id format is \[GUID\]:\[version\]. Pass only GUID in request if you want to get the highest form version
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-
-{% api-method-headers %}
-{% api-method-parameter name="X-AUTHENTICATION-TOKEN" type="string" required=true %}
+{% swagger-parameter in="header" name="X-AUTHENTICATION-TOKEN" type="string" %}
 Authentication token
-{% endapi-method-parameter %}
-{% endapi-method-headers %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
-
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="post" host="" path="/api/composition/convert" %}
-{% api-method-summary %}
-Convert composition
-{% endapi-method-summary %}
+{% swagger baseUrl="" path="/api/composition/convert" method="post" summary="Convert composition" %}
+{% swagger-description %}
+Input parameters are:
 
-{% api-method-description %}
-Input parameters are:  
-- composition
-{% endapi-method-description %}
+\
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="templateId" type="string" required=true %}
+
+\- composition
+{% endswagger-description %}
+
+{% swagger-parameter in="path" name="templateId" type="string" %}
 Template ID
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="formatTo" type="string" required=true %}
-Can be one of the following:   
-- CanonicalXml,   
-- CanonicalJson,   
-- StructuredJSON,   
-- Flat \(in development\),   
-- BpFlat,   
-- TDD \(in development\)
-{% endapi-method-parameter %}
+{% swagger-parameter in="path" name="formatTo" type="string" %}
+Can be one of the following: 
 
-{% api-method-parameter name="formatFrom" type="string" required=true %}
-Can be one of the following:   
-- CanonicalXml,   
-- CanonicalJson,   
-- StructuredJSON,   
-- Flat \(in development\),   
-- BpFlat,   
-- TDD \(in development\)
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+\
 
-{% api-method-headers %}
-{% api-method-parameter name="X-AUTHENTICATION-TOKEN" type="string" required=true %}
+
+\- CanonicalXml, 
+
+\
+
+
+\- CanonicalJson, 
+
+\
+
+
+\- StructuredJSON, 
+
+\
+
+
+\- Flat (in development), 
+
+\
+
+
+\- BpFlat, 
+
+\
+
+
+\- TDD (in development)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="path" name="formatFrom" type="string" %}
+Can be one of the following: 
+
+\
+
+
+\- CanonicalXml, 
+
+\
+
+
+\- CanonicalJson, 
+
+\
+
+
+\- StructuredJSON, 
+
+\
+
+
+\- Flat (in development), 
+
+\
+
+
+\- BpFlat, 
+
+\
+
+
+\- TDD (in development)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="header" name="X-AUTHENTICATION-TOKEN" type="string" %}
 Authentication token
-{% endapi-method-parameter %}
-{% endapi-method-headers %}
+{% endswagger-parameter %}
 
-{% api-method-body-parameters %}
-{% api-method-parameter name="composition" type="string" required=true %}
-openEHR Composition in \[formatFrom\] format
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% swagger-parameter in="body" name="composition" type="string" %}
+openEHR Composition in [formatFrom] format
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
-
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
+{% endswagger-response %}
+{% endswagger %}
